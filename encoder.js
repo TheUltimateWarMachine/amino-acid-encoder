@@ -1,4 +1,4 @@
-       chunk = (s) => {
+encode = (s) => {
 var arr= [];
 s=s.match(/.{1,4}/g);
 if(s[s.length-1].length < 4){
@@ -17,6 +17,7 @@ arr.push(bit.apply(null,s[i]))
 if(popped){arr.push(popped);return arr}
 else{return arr} 
 }
+//supporting functions
             tA=(a)=>{
                 a=a.toLowerCase();a=a.split(``);
                
@@ -42,3 +43,6 @@ else{return arr}
                 c--;
 
             }
+            return sum;
+            }
+//supporting functions
