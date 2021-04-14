@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body><h2>
+type an amino acid into the input box using a,t,g, or c   </h2><br><h4>(encoded in groups of 4)</h4><hr><br>
+        <input id="input" placeholder="insert string here"/><button onclick="document.querySelector(`#input`).value=box();">randomize</button>
+        <script>
+            window.onload = () => {
+                restrictChars(document.querySelector(`#input`),[`a`,`t`,`g`,`c`])
+                restrictChars(document.querySelector(`#input2`),`0123456789,atgc`.split(``))
+                document.querySelector(`#button`).addEventListener(`click`,function(){
+                document.querySelector(`#p`).innerText =`encoded: ${chunk(document.querySelector(`#input`).value.toString()).toString()}`;
+                document.querySelector(`#button2`).addEventListener(`click`,function(){
+                    var x = document.querySelector(`#input2`).value.split(`,`),l=x.length;
+                    for(var i=0;i<l;i++){
+                        if(!isNaN(parseInt(x[i]))){
+                       x[i]= parseInt(x[i])}
+                    }
+                    console.log(x)
+                    document.querySelector(`#p2`).innerText=decode(x).join(``).toLowerCase();
+                })
+            })
+            }
+            
+        </script>
+        <br><button id='button'>encode this string</button> <p id='p'></p><br>
+        <hr><input placeholder="numbers seperated w commas" id="input2"/><br> <button id="button2">decode</button>
+        <p id='p2'></p>
+        <script>
+            box = () => {
+                repeat = (func,times) => {
+    for(var i=0;i<parseInt(times);i++)func();
+    }
+genStr=(strlen)=>{
+    "use strict";
+    if(typeof strlen !== `number`)return new window.Error(`strlen is not of type number`);
+    var abcs=['g','t','a','c'],repeat=(func,times)=>{for(var i=0;i<times;i++)func();},
+tempstr=``;
+ repeat(function(){tempstr+=abcs[window.Math.round(Math.random()*3)]},parseInt(strlen));
+return tempstr;
+}
+var pt = window.prompt(`how many characters long? default 10`);
+if(isNaN(parseInt(pt)))pt=10;
+var gend = genStr(parseInt(pt));
+return gend;
+            }
+           /*______________________________________________________________________________________ 
+             |*from*:|https://github.com/Shish2/restrict-char/blob/main/restrictChars%20(input).js|
+              ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾*/ 
+              
+restrictChars = (inp, chars, unrestrict) => {
+  if (!unrestrict) {
+    inp.onkeydown = (e) => {
+      window.down = inp.value;
+    };
+    inp.oninput = (e) => {
+      switch (e.inputType) {
+        case `insertText`:
+          if (!chars.includes(e.data)) {
+            var t = inp.value.split(``);
+            t.pop();
+            inp.value = t.join(``);
+          }
+          break;
+        case `insertFromPaste`:
+          var s = inp.value;
+          var s1 = s.substring(down.length);
+          var s2 = s1.split(``),
+            s3 = s2.length;
+          for (var i = 0; i < s3; i++) {
+            if (!chars.includes(s2[i])) {
+              s2[i] = ``;
+            }
+          }
+          var t = inp.value.split(``);
+          for (i = 0; i < s2.length; i++) {
+            if (s2[i] == ``) s2.pop();
+          }
+
+          inp.value = down.split(``).concat(s2).join(``);
+      }
+    };
+  } else {
+    inp.onkeydown = inp.oninput = null;
+  }
+};
+/*______________________________________________________________________________________ 
+  |*from*:|https://github.com/Shish2/restrict-char/blob/main/restrictChars%20(input).js|
+   ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾*/ 
+        </script>
+        <script>
+            chunk = (s) => {
+var arr= [];
+s=s.match(/.{1,4}/g);
+if(s[s.length-1].length < 4){
+    var popped = s.pop()
+}
+for(var i=0;i<s.length;i++)s[i]=tA(s[i]);
+for(var i=0;i<s.length;i++){
+    s[i]=s[i].split(``);
+    for(var o=0;o<s[i].length;o++){
+s[i][o]=parseInt(s[i][o]);
+    }
+            }
+for(var i=0;i<s.length;i++){
+arr.push(bit.apply(null,s[i]))
+}
+if(popped){arr.push(popped);return arr}
+else{return arr} 
+}
+            tA=(a)=>{
+                a=a.toLowerCase();a=a.split(``);
+               
+                for(var i=0;i<a.length;i++){
+                    switch(a[i]){
+                        case 'a':a[i]=0;
+                        break;
+                        case 't':a[i]=1;
+                        break;
+                        case 'g':a[i]=2;
+                        break;
+                        case 'c':a[i]=3;
+                        break;
+                        default: return new window.Error(`bad amino acid`); break;
+                    }
+                }
+                return a.join(``);
+            }
+            bit = (...numbers)=>{
+            var n=numbers.length,c=n-1,sum=0;
+                for(var i=0;i<n;i++){
+                    sum += numbers[i] << 2*c;
+                c--;
+
+            }
+            return sum;
+            }
+        decode = (arr) => {
+            if(typeof arr[arr.length-1]=="string"){var popped=arr.pop();}
+            var namespace = [],count=0;
+            for(var i=0;i<arr.length;i++){
+                namespace[`${count}`]= (arr[i] & 0xC0) >> 6;
+               count++;
+               namespace[`${count}`]= (arr[i] & 0x30) >> 4;
+               count++;
+               namespace[`${count}`]= (arr[i] & 0x0C) >> 2;
+               count++;
+               namespace[`${count}`]= arr[i] & 0x03;
+               count++;
+            }
+            for(var i=0;i<namespace.length;i++){
+                switch(namespace[i]){
+                    case 0: namespace[i] = `A`; break;
+                    case 1: namespace[i] = `T`; break;
+                    case 2: namespace[i] = `G`; break;
+                    case 3: namespace[i] = `C`; break;
+                    
+                }      
+                      }
+                    popped?namespace.push(popped):null
+                      return namespace;
+                           }
+        </script>
+    </body>
+</html>
