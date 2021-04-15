@@ -16,5 +16,5 @@ This will not break anything, and the string will still be de/encoded like norma
 ************************************************************************************************************************
 
 :: To decode: call **decode(num-arr)**
--decode will take the array that encode function does.
+-decode will take the array that encode function does. [27, 27] will become "ATGCATGC"
 ************************************************************************************************************************
